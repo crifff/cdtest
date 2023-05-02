@@ -1,0 +1,26 @@
+apiVersion: skaffold/v4beta4
+kind: Config
+metadata:
+  name: ko
+build:
+  artifacts:
+  - image: skaffold-ko
+    ko:
+      dependencies:
+        paths:
+        - "**/*.go"
+        - go.*
+manifests:
+  rawYaml:
+    - k8s/example.yaml
+profiles:
+  - name: dev
+    manifests:
+      rawYaml:
+        - run-dev.yaml
+  - name: prod
+    manifests:
+      rawYaml:
+        - run-prod.yaml
+deploy:
+  cloudrun: {}

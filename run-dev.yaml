@@ -1,0 +1,12 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: cdtest-dev
+spec:
+  template:
+    spec:
+      containers:
+        - image: my-app-image
+          env:
+            - name: NAME
+              value: "dev"

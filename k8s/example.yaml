@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ko
+spec:
+  ports:
+  - name: http
+    port: 8080
+  selector:
+    app: ko
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ko
+spec:
+  selector:
+    matchLabels:
+      app: ko
+  template:
+    metadata:
+      labels:
+        app: ko
+    spec:
+      containers:
+      - image: skaffold-ko
+        name: ko
+        ports:
+        - containerPort: 8080
+        env:
+          - name: NAME
+            value: "aaa"
